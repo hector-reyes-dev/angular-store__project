@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../models/product.model';
 
 @Component({
-  selector: 'app-product',
+  selector: 'app-prod',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })

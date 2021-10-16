@@ -4,9 +4,9 @@
 <p>Today: {{ date | timeAgo }}</p>
 
 <div class="products-grid">
-  <app-product
+  <app-prod
     [product]="product"
     *ngFor="let product of products"
     (addedProduct)="onAddToShoppingCart($event)"
-  ></app-product>
+  ></app-prod>
 </div>
