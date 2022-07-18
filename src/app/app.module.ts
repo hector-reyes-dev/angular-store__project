@@ -18,6 +18,7 @@ import { CategoryComponent } from './pages/category/category.component';
 import { MycartComponent } from './pages/mycart/mycart.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { RecoveryComponent } from './pages/recovery/recovery.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { RegisterComponent } from './pages/register/register.component';
     MycartComponent,
     LoginComponent,
     RegisterComponent,
+    RecoveryComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
