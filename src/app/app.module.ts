@@ -15,6 +15,7 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CategoryComponent } from './pages/category/category.component';
+import { MycartComponent } from './pages/mycart/mycart.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CategoryComponent } from './pages/category/category.component';
     HomeComponent,
     NotFoundComponent,
     CategoryComponent,
+    MycartComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
