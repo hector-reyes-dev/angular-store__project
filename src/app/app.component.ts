@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from './services/auth.service';
-import { UsersService } from './services/users.service';
+import { AuthService } from './services/auth/auth.service';
+import { UsersService } from './services/users/users.service';
+import { FilesService } from './services/files/files.service';
 
 @Component({
   selector: 'app-root',
@@ -8,47 +9,42 @@ import { UsersService } from './services/users.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  imgParent = '';
-  showImg = true;
-  token = '';
-  userEmail = '';
+  imgRta = '';
 
   constructor(
-    private authService: AuthService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private filesService: FilesService
   ) {}
-
-  onLoaded(img: string) {
-    console.log('Log padre', img);
-  }
-
-  toogleImg() {
-    this.showImg = !this.showImg;
-  }
 
   createUser() {
     this.usersService
       .create({
-        name: 'Pablo',
-        email: 'pablo@email.com',
-        password: '1221',
+        name: 'Sebas',
+        email: 'sebas@mail.com',
+        password: '1212',
       })
       .subscribe((rta) => {
         console.log(rta);
       });
   }
 
-  login() {
-    this.authService.login('pablo@email.com', '1221').subscribe((rta) => {
-      console.log(rta.access_token);
-      this.token = rta.access_token;
-    });
+  downloadPdf() {
+    this.filesService
+      .getFile(
+        'my.pdf',
+        'https://young-sands-07814.herokuapp.com/api/files/dummy.pdf',
+        'application/pdf'
+      )
+      .subscribe();
   }
 
-  getProfile() {
-    this.authService.profile(this.token).subscribe((profile) => {
-      console.log(profile.email);
-      this.userEmail = profile.email;
-    });
+  onUpload(event: Event) {
+    const element = event.target as HTMLInputElement;
+    const file = element.files?.item(0);
+    if (file) {
+      this.filesService.uploadFile(file).subscribe((rta) => {
+        this.imgRta = rta.location;
+      });
+    }
   }
 }
