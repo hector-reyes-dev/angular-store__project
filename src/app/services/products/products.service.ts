@@ -20,18 +20,21 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ProductsService {
-  private apiUrl = `${environment.API_URL}/api/products`;
+  private apiUrl = `${environment.API_URL}/api`;
 
   constructor(private http: HttpClient) {}
 
   getAll(limit?: number, offset?: number) {
     let params = new HttpParams();
-    if (limit && offset) {
+    if (limit && offset != null) {
       params = params.set('limit', limit);
-      params = params.set('offset', limit);
+      params = params.set('offset', offset);
     }
     return this.http
-      .get<Product[]>(this.apiUrl, { params, context: checkTime() })
+      .get<Product[]>(`${this.apiUrl}/products`, {
+        params,
+        context: checkTime(),
+      })
       .pipe(
         retry(3),
         map((products) =>
