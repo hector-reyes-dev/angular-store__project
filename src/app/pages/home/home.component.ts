@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
-    this.productsService.getAll(10, 0).subscribe((data) => {
+    this.productsService.getAll(this.limit, this.offset).subscribe((data) => {
       this.products = data;
       this.offset += this.limit;
     });
