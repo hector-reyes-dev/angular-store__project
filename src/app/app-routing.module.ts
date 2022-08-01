@@ -12,7 +12,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
   },
   {
@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'recovery',
     component: RecoveryComponent,
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
 
