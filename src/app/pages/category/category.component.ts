@@ -7,6 +7,7 @@ import { ProductsService } from 'src/app/services/products/products.service';
 @Component({
   selector: 'app-category',
   template: `<app-products
+    [categoryId]="categoryId"
     [products]="products"
     (loadMore)="loadMore()"
   ></app-products>`,
@@ -42,6 +43,10 @@ export class CategoryComponent implements OnInit {
         this.products = data;
         this.offset += this.limit;
       });
+
+    this.route.queryParamMap.subscribe((params) => {
+      this.categoryId = params.get('product');
+    });
   }
 
   loadMore(): void {
