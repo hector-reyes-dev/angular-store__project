@@ -22,6 +22,7 @@ export class AppComponent {
         name: 'Sebas',
         email: 'sebas@mail.com',
         password: '1212',
+        role: 'customer',
       })
       .subscribe((rta) => {
         console.log(rta);

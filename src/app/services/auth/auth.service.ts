@@ -24,6 +24,7 @@ export class AuthService {
   }
 
   getProfile() {
+    console.log(this.apiUrl);
     return this.http.get<User>(`${this.apiUrl}/profile`);
   }
 
