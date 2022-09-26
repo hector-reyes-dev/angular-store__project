@@ -14,15 +14,14 @@ import { ProductsService } from '../../../services/products/products.service';
 })
 export class ProductsComponent {
   @Input() products: Product[] = [];
+  @Input() categoryId: string | null = null;
   @Input()
   set productId(id: string | null) {
     if (id) this.onShowDetail(id);
   }
-  @Input()
-  set categoryId(id: string | null) {
-    if (id) this.onShowDetail(id);
-  }
+
   @Output() loadMore: EventEmitter<string> = new EventEmitter<string>();
+
   myShoppingCart: Product[] = [];
   total = 0;
   showProductDetail = false;
@@ -47,9 +46,11 @@ export class ProductsComponent {
 
   onShowDetail(id: string) {
     this.statusDetail = 'loading';
+
     if (!this.showProductDetail) {
       this.showProductDetail = true;
     }
+
     this.productsService.getOne(id).subscribe(
       (data) => {
         this.productChosen = data;
@@ -64,12 +65,13 @@ export class ProductsComponent {
 
   createNewProduct() {
     const product: CreateProductDTO = {
-      title: 'Nuevo prodcuto',
+      title: 'Nuevo producto',
       description: 'bla bla bla',
       images: [`https://placeimg.com/640/480/any?random=${Math.random()}`],
       price: 1000,
       categoryId: 2,
     };
+
     this.productsService.create(product).subscribe((data) => {
       this.products.unshift(data);
     });
@@ -81,6 +83,7 @@ export class ProductsComponent {
         title: 'change title',
       };
       const id = this.productChosen?.id;
+
       this.productsService.update(id, changes).subscribe((data) => {
         const productIndex = this.products.findIndex(
           (item) => item.id === this.productChosen?.id
@@ -98,6 +101,7 @@ export class ProductsComponent {
         const productIndex = this.products.findIndex(
           (item) => item.id === this.productChosen?.id
         );
+
         this.products.splice(productIndex, 1);
         this.showProductDetail = false;
       });

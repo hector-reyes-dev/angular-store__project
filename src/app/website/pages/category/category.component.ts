@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  Router,
+  ActivatedRoute,
+  Event,
+  NavigationStart,
+} from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Product } from 'src/app/models/product.model';
 import { ProductsService } from 'src/app/services/products/products.service';
@@ -21,6 +26,7 @@ export class CategoryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private productsService: ProductsService
   ) {}
 
@@ -29,6 +35,7 @@ export class CategoryComponent implements OnInit {
       .pipe(
         switchMap((params) => {
           this.categoryId = params.get('id');
+
           if (this.categoryId) {
             return this.productsService.getbyCategory(
               this.categoryId,
@@ -36,6 +43,7 @@ export class CategoryComponent implements OnInit {
               this.offset
             );
           }
+
           return [];
         })
       )
@@ -44,8 +52,15 @@ export class CategoryComponent implements OnInit {
         this.offset += this.limit;
       });
 
-    this.route.queryParamMap.subscribe((params) => {
-      this.categoryId = params.get('product');
+    this.resetLimitAndOffset();
+  }
+
+  resetLimitAndOffset(): void {
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        this.limit = 10;
+        this.offset = 0;
+      }
     });
   }
 

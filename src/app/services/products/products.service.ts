@@ -25,7 +25,6 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   getbyCategory(categoryId: string, limit?: number, offset?: number) {
-    // TODO: Limit and Offset Params method
     let params = new HttpParams();
     if (limit && offset != null) {
       params = params.set('limit', limit);
@@ -75,7 +74,7 @@ export class ProductsService {
           return throwError('El producto no existe');
         }
         if (error.status === HttpStatusCode.Unauthorized) {
-          return throwError('No estas permitido');
+          return throwError('No estas autorizado');
         }
         return throwError('Ups algo salio mal');
       })

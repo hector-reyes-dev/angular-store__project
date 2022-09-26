@@ -8,7 +8,6 @@
   <button (click)="onLoadMore()">Load more</button>
 </div>
 <div class="product-detail" [class.active]="showProductDetail">
-  {{ statusDetail }}
   <div *ngIf="productChosen">
     <button (click)="toggleProductDetail()">Close</button>
     <h1>{{ productChosen.title }}</h1>
